@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=ggip
+    username: sa
+    password: sasa
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jackson:
+    date-format: dd.MM.yyyy
+
+  tomcat:
+    max-wait: 20000
+    max-active: 50
+    max-idle: 20
+    min-idle: 15
+  jpa:
+    show-sql: true
+    properties:
+      hibernate: dialect:org.hibernate.dialect.SQLServer2012Dialect
+  
+server:
+   port: ${PORT:8081} # This is the default port anyway, but you can change it here
+   
+farmerProductId: ISPRD003001000009376125072017
