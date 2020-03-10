@@ -52,9 +52,10 @@ public class BankScheduler {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-			File agentsFile = new File("Banks.csv");
+			String fileName="Bank_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File agentsFile = new File(fileName);
 			FileWriter writer = new FileWriter(agentsFile);
+			
 
 //				writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
 			columnString.add("[)~=_(]\r");
@@ -69,10 +70,10 @@ public class BankScheduler {
 			}
 			writer.close();
 //				String tempDir= fileDir.concat("\\BanksInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Banks.csv"));
+			String tempDir = fileDir.concat("\\Bank");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(agentsFile.getPath()), Paths.get(tempDir.concat("\\Banks.csv")),
+			Files.move(Paths.get(agentsFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),
 					StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(agentsFile.getPath()));
 //				

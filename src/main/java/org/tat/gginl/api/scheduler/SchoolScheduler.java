@@ -49,9 +49,9 @@ public class SchoolScheduler {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-			File agentsFile = new File("Schools.csv");
-			FileWriter writer = new FileWriter(agentsFile);
+			String fileName="School_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File schoolFile = new File(fileName);
+			FileWriter writer = new FileWriter(schoolFile);
 
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
 			columnString.add("[)~=_(]\r");
@@ -67,12 +67,12 @@ public class SchoolScheduler {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\AgentsInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Schools.csv"));
+			String tempDir = fileDir.concat("\\School");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(agentsFile.getPath()), Paths.get(tempDir.concat("\\Schools.csv")),
+			Files.move(Paths.get(schoolFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),
 					StandardCopyOption.REPLACE_EXISTING);
-			Files.deleteIfExists(Paths.get(agentsFile.getPath()));
+			Files.deleteIfExists(Paths.get(schoolFile.getPath()));
 			/*
 			 * writer.close();
 			 * 

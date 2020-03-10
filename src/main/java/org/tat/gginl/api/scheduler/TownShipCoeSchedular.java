@@ -52,8 +52,8 @@ public class TownShipCoeSchedular {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-			File townpShipCodeFile = new File("TownShipCode.csv");
+			String fileName="TownshipCode_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File townpShipCodeFile = new File(fileName);
 			FileWriter writer = new FileWriter(townpShipCodeFile);
 
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -70,10 +70,10 @@ public class TownShipCoeSchedular {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\TownShipCodeInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\TownShipCode.csv"));
+			String tempDir =fileDir.concat("\\TownShipCode");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(townpShipCodeFile.getPath()), Paths.get(tempDir.concat("\\TownShipCode.csv")),
+			Files.move(Paths.get(townpShipCodeFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),
 					StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(townpShipCodeFile.getPath()));
 			/*

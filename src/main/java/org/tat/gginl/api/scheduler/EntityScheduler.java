@@ -46,11 +46,11 @@ public class EntityScheduler {
 		if (dataList.size() > 0) {
 
 			List<String> columnString = columnNameList.stream().map(String::valueOf).collect(Collectors.toList());
-
+			String fileName="Entitys_".concat(FileService.getDateToString(new Date())).concat(".csv");
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
-			File agentsFile = new File("Entitys.csv");
+			File agentsFile = new File(fileName);
 			FileWriter writer = new FileWriter(agentsFile);
 
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -67,10 +67,10 @@ public class EntityScheduler {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\AgentsInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Entitys.csv"));
+			String tempDir = fileDir.concat("\\Entitys");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(agentsFile.getPath()), Paths.get(tempDir.concat("\\Entitys.csv")),
+			Files.move(Paths.get(agentsFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),
 					StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(agentsFile.getPath()));
 			/*

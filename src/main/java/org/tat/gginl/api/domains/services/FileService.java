@@ -114,7 +114,7 @@ public class FileService {
 	}
 	
 	public static String getDateToString(Date date) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-YYYY-HH-mm");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMdd_HHmm");
 		return simpleDateFormat.format(date);
 	}
 

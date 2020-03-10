@@ -59,8 +59,9 @@ public class PaymentTypeSchedular {
 				
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-				
-				File paymentTypeFile = new File("PaymentType.csv");
+				String fileName="PaymentType_".concat(FileService.getDateToString(new Date())).concat(".csv");
+
+				File paymentTypeFile = new File(fileName);
 				FileWriter writer = new FileWriter(paymentTypeFile);
 				
 //				writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -76,10 +77,10 @@ public class PaymentTypeSchedular {
 				
 				writer.close();
 //				String tempDir= fileDir.concat("\\PaymentTypeInfo").concat(FileService.getDateToString(new Date()));
-				String tempDir= fileDir;
-				Path filePath = Paths.get(tempDir.concat("\\PaymentType.csv"));
+				String tempDir=fileDir.concat("\\PaymentType");
+				Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 				Files.createDirectories(filePath.getParent());
-				Files.move(Paths.get(paymentTypeFile.getPath()),Paths.get(tempDir.concat("\\PaymentType.csv")),StandardCopyOption.REPLACE_EXISTING);
+				Files.move(Paths.get(paymentTypeFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 				Files.deleteIfExists(Paths.get(paymentTypeFile.getPath()));
 				
 				/*

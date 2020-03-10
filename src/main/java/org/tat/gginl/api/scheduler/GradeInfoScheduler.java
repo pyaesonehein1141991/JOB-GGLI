@@ -55,8 +55,8 @@ public class GradeInfoScheduler {
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-			
-			File gradeInfoFile = new File("GradeInfo.csv");
+			String fileName="GradeInfo_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File gradeInfoFile = new File(fileName);
 			FileWriter writer = new FileWriter(gradeInfoFile);
 			
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -73,10 +73,10 @@ public class GradeInfoScheduler {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\GradesInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir= fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\GradeInfo.csv"));
+			String tempDir= fileDir.concat("\\GradesInfo");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(gradeInfoFile.getPath()),Paths.get(tempDir.concat("\\GradeInfo.csv")),StandardCopyOption.REPLACE_EXISTING);
+			Files.move(Paths.get(gradeInfoFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(gradeInfoFile.getPath()));
 			
 			/*

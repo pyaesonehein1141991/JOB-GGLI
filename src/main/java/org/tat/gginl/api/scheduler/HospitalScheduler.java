@@ -52,8 +52,8 @@ public class HospitalScheduler {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-			File hospitalFile = new File("Hospital.csv");
+			String fileName="Hospital_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File hospitalFile = new File(fileName);
 			FileWriter writer = new FileWriter(hospitalFile);
 
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -70,10 +70,10 @@ public class HospitalScheduler {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\HospitalInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Hospital.csv"));
+			String tempDir =fileDir.concat("\\Hospital");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(hospitalFile.getPath()), Paths.get(tempDir.concat("\\Hospital.csv")),
+			Files.move(Paths.get(hospitalFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),
 					StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(hospitalFile.getPath()));
 

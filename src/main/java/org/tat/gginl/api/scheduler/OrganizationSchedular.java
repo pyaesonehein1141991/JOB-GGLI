@@ -54,8 +54,8 @@ public class OrganizationSchedular {
 				
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-				
-				File organizationFile = new File("Organization.csv");
+				String fileName="Organization_".concat(FileService.getDateToString(new Date())).concat(".csv");
+				File organizationFile = new File(fileName);
 				FileWriter writer = new FileWriter(organizationFile);
 				
 //				writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -72,10 +72,10 @@ public class OrganizationSchedular {
 
 				writer.close();
 //				String tempDir= fileDir.concat("\\OrganizationInfo").concat(FileService.getDateToString(new Date()));
-				String tempDir= fileDir;
-				Path filePath = Paths.get(tempDir.concat("\\Organization.csv"));
+				String tempDir= fileDir.concat("\\Organization");
+				Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 				Files.createDirectories(filePath.getParent());
-				Files.move(Paths.get(organizationFile.getPath()),Paths.get(tempDir.concat("\\Organization.csv")),StandardCopyOption.REPLACE_EXISTING);
+				Files.move(Paths.get(organizationFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 				Files.deleteIfExists(Paths.get(organizationFile.getPath()));
 				
 				/*

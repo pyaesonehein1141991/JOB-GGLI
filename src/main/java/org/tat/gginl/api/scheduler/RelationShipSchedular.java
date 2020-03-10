@@ -56,8 +56,8 @@ public class RelationShipSchedular {
 				
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-				
-				File relationshipFile = new File("RelationShip.csv");
+				String fileName="RelationShip_".concat(FileService.getDateToString(new Date())).concat(".csv");
+				File relationshipFile = new File(fileName);
 				FileWriter writer = new FileWriter(relationshipFile);
 				
 //				writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -72,10 +72,10 @@ public class RelationShipSchedular {
 				}
 				writer.close();
 //				String tempDir= fileDir.concat("\\RelationShipInfo").concat(FileService.getDateToString(new Date()));
-				String tempDir= fileDir;
-				Path filePath = Paths.get(tempDir.concat("\\RelationShip.csv"));
+				String tempDir=  fileDir.concat("\\RelationShip");
+				Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 				Files.createDirectories(filePath.getParent());
-				Files.move(Paths.get(relationshipFile.getPath()),Paths.get(tempDir.concat("\\RelationShip.csv")),StandardCopyOption.REPLACE_EXISTING);
+				Files.move(Paths.get(relationshipFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 				Files.deleteIfExists(Paths.get(relationshipFile.getPath()));
 				/*
 				writer.close();

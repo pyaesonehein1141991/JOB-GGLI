@@ -51,11 +51,9 @@ public class StatCodeScheduler {
 				
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-				
-				File salePointsFile = new File("StatCode.csv");
-				
-				
-				FileWriter writer = new FileWriter("StatCode.csv");
+				String fileName="StatCode_".concat(FileService.getDateToString(new Date())).concat(".csv");
+				File stateCodeFile = new File(fileName);
+				FileWriter writer = new FileWriter(stateCodeFile);
 				
 //				writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
 				columnString.add("[)~=_(]\r");
@@ -72,12 +70,12 @@ public class StatCodeScheduler {
 				
 				writer.close();
 //				String tempDir= fileDir.concat("\\SalePointInfo").concat(FileService.getDateToString(new Date()));
-				String tempDir= fileDir;
-				Path filePath = Paths.get(tempDir.concat("\\StatCode.csv"));
+				String tempDir= fileDir.concat("\\StateCode");
+				Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 				Files.createDirectories(filePath.getParent());
-				Files.move(Paths.get(salePointsFile.getPath()),Paths.get(tempDir.concat("\\StatCode.csv")),StandardCopyOption.REPLACE_EXISTING);
+				Files.move(Paths.get(stateCodeFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 				
-				Files.deleteIfExists(Paths.get(salePointsFile.getPath()));
+				Files.deleteIfExists(Paths.get(stateCodeFile.getPath()));
 
 //				FileOutputStream fos = new FileOutputStream("SalePoints.zip");
 //				ZipOutputStream zipOs = new ZipOutputStream(fos);

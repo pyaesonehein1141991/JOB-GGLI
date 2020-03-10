@@ -56,8 +56,8 @@ public class ProvinceScheular {
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-			
-			File provinceFile = new File("Provience.csv");
+			String fileName="Provience_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File provinceFile = new File(fileName);
 			FileWriter writer = new FileWriter(provinceFile);
 			
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -74,10 +74,10 @@ public class ProvinceScheular {
 			
 			writer.close();
 //			String tempDir= fileDir.concat("\\ProvienceInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir= fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Provience.csv"));
+			String tempDir= fileDir.concat("\\Provience");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(provinceFile.getPath()),Paths.get(tempDir.concat("\\Provience.csv")),StandardCopyOption.REPLACE_EXISTING);
+			Files.move(Paths.get(provinceFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(provinceFile.getPath()));
 			/*
 			writer.close();

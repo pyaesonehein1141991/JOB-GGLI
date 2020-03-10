@@ -63,8 +63,8 @@ public class CustomerScheduler {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-			File customerFile = new File("Customers.csv");
+			String fileName="Customer_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File customerFile = new File(fileName);
 			FileWriter writer = new FileWriter(customerFile);
 
 			// writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -82,11 +82,10 @@ public class CustomerScheduler {
 			writer.close();
 			// String tempDir= fileDir.concat("\\CustomersInfo").concat(FileService.getDateToString(new
 			// Date()));
-			String tempDir = fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Customers.csv"));
+			String tempDir = fileDir.concat("\\Customer");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(customerFile.getPath()), Paths.get(tempDir.concat("\\Customers.csv")),
-					StandardCopyOption.REPLACE_EXISTING);
+			Files.move(Paths.get(customerFile.getPath()), Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(customerFile.getPath()));
 			/*
 			 * 

@@ -57,7 +57,9 @@ public class ProductSchedular {
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 			
-			File productFile = new File("Product.csv");
+			String fileName="Product_".concat(FileService.getDateToString(new Date())).concat(".csv");
+
+			File productFile = new File(fileName);
 			FileWriter writer = new FileWriter(productFile);
 			
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
@@ -74,10 +76,10 @@ public class ProductSchedular {
 
 			writer.close();
 //			String tempDir= fileDir.concat("\\ProductInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir= fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Product.csv"));
+			String tempDir= fileDir.concat("\\Product");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(productFile.getPath()),Paths.get(tempDir.concat("\\Product.csv")),StandardCopyOption.REPLACE_EXISTING);
+			Files.move(Paths.get(productFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(productFile.getPath()));
 			
 			/*

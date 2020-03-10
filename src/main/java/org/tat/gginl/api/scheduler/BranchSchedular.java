@@ -55,7 +55,8 @@ public class BranchSchedular {
 			List<String> columnString = columnNameList.stream().map(String::valueOf).collect(Collectors.toList()); 
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-			File agentsFile = new File("Branchs.csv");
+			String fileName="Branch_".concat(FileService.getDateToString(new Date())).concat(".csv");
+			File agentsFile = new File(fileName);
 			FileWriter writer = new FileWriter(agentsFile);
 //			writesCsvFromBean(Paths.get(agentsFile.getPath()),agentList);
 			columnString.add("[)~=_(]\r");
@@ -67,10 +68,10 @@ public class BranchSchedular {
 			}
 			writer.close();
 //			String tempDir= fileDir.concat("\\BranchsInfo").concat(FileService.getDateToString(new Date()));
-			String tempDir= fileDir;
-			Path filePath = Paths.get(tempDir.concat("\\Branchs.csv"));
+			String tempDir= fileDir.concat("\\Branch");
+			Path filePath = Paths.get(tempDir.concat("\\"+fileName));
 			Files.createDirectories(filePath.getParent());
-			Files.move(Paths.get(agentsFile.getPath()),Paths.get(tempDir.concat("\\Branchs.csv")),StandardCopyOption.REPLACE_EXISTING);
+			Files.move(Paths.get(agentsFile.getPath()),Paths.get(tempDir.concat("\\"+fileName)),StandardCopyOption.REPLACE_EXISTING);
 			Files.deleteIfExists(Paths.get(agentsFile.getPath()));
 		/*	
 			writer.close();
